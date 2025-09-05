@@ -9,15 +9,20 @@ class SplashScene extends Phaser.Scene {
   preload() {
     this.generatePlaceholders();
     this.load.audio('bgm', '/assets/audio/music-game.mp3'); // carga del MP3
+    this.load.image('p1_png', '/assets/img/p1.webp');
+    this.load.image('p2_png', '/assets/img/p2.webp');
   }
 
   create() {
     this.cameras.main.setBackgroundColor('#0f0f23');
     // crea el sonido (loop + volumen) pero NO lo reproduce aún
-    this.bgm = this.sound.add('bgm', { loop: true, volume: 0.35 });
-    const startBGM = () => {
-      if (!this.bgm.isPlaying) this.bgm.play();
-    };
+    let bgm = this.sound.get('bgm');
+    if (!bgm) {
+      bgm = this.sound.add('bgm', { loop: true, volume: 0.35 });
+    }
+
+    const startBGM = () => { if (!bgm.isPlaying) bgm.play(); };
+
     this.input.once('pointerdown', startBGM);
     this.input.keyboard.once('keydown', startBGM);
     this.sound.once('unlocked', startBGM);
@@ -148,8 +153,8 @@ class SetupScene extends Phaser.Scene {
 
     this.createPlayerInputs();
 
-    this.add.sprite(200, 300, 'char_p1').setScale(0.8);
-    this.add.sprite(600, 300, 'char_p2').setScale(0.8);
+    this.add.sprite(200, 300, 'p1_png').setScale(0.8);
+    this.add.sprite(600, 300, 'p2_png').setScale(0.8);
 
     this.add.text(200, 400, 'Jugador 1', { fontSize: '18px', color: '#4aa3df', fontStyle: 'bold' }).setOrigin(0.5);
     this.add.text(600, 400, 'Jugador 2', { fontSize: '18px', color: '#df9a4a', fontStyle: 'bold' }).setOrigin(0.5);
