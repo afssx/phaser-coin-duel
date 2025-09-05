@@ -32,7 +32,7 @@ class SplashScene extends Phaser.Scene {
     bg.fillGradientStyle(0x1a1a2e, 0x1a1a2e, 0x16213e, 0x16213e);
     bg.fillRect(0, 0, GAME_W, GAME_H);
 
-    const logo = this.add.text(GAME_W / 2, GAME_H / 2 - 60, 'DUELO DE\nFORTUNAS', {
+    const logo = this.add.text(GAME_W / 2, 60, 'DUELO DE\nFORTUNAS', {
       fontSize: '48px',
       fontStyle: 'bold',
       color: '#ffd166',
@@ -40,7 +40,7 @@ class SplashScene extends Phaser.Scene {
       shadow: { offsetX: 2, offsetY: 2, color: '#000', blur: 4, fill: true }
     }).setOrigin(0.5);
 
-    this.add.text(GAME_W / 2, GAME_H / 2 + 20, 'Un juego de estrategia y suerte', {
+    this.add.text(GAME_W / 2, 140, 'Un juego de estrategia y suerte', {
       fontSize: '18px',
       color: '#aaa',
       align: 'center'
@@ -64,6 +64,43 @@ class SplashScene extends Phaser.Scene {
       this.scene.start('SetupScene');
     });
 
+    // === Panel con reglas encima del botón "COMENZAR" ===
+    const pw = GAME_W - 80;             // ancho del panel
+    const ph = 300;                      // alto del panel (ajústalo si el texto queda largo)
+    const px = 40;                       // margen izquierdo
+    const py = GAME_H - 120 - ph - 16;   // justo sobre el botón con 16px de margen
+
+    const rulesContainer = this.add.container(px, py);
+
+    const rulesBg = this.add.graphics();
+    rulesBg.fillStyle(0x000000, 0.35)
+      .fillRoundedRect(0, 0, pw, ph, 12)
+      .lineStyle(1, 0xffffff, 0.18)
+      .strokeRoundedRect(0, 0, pw, ph, 12);
+
+    const rulesText = `Solo hace daño el que eligió Cara.
+
+Se parte de 3 de daño y se aplican bonos por racha de Caras del atacante:
+• 2 Caras seguidas: +1 (pasa a 4)
+• 3 Caras seguidas: Crítico x2 (lo que tengas hasta ahí se duplica)
+• 4+ Caras: Penetra (ignora defensa activa y armadura)
+
+Luego se aplican las defensas del que eligió Sello:
+• Defensa activa (por haber elegido Sello este turno): daño ×0.5 (redondea hacia abajo) si el atacante no penetra.
+• Armadura (si el defensor venía con ≥2 Sellos seguidos y este turno también eligió Sello): −1 daño si el atacante no penetra.
+• Escudo mágico (si el defensor alcanzó ≥3 Sellos seguidos en algún turno anterior y aún no lo consumió): bloquea todo el daño y se consume.
+• Inmune (si el defensor llega a 4 Sellos seguidos este mismo turno): 0 daño (la inmunidad es solo ese turno).`;
+
+    const rules = this.add.text(12, 12, rulesText, {
+      fontSize: '12px',
+      color: '#ddd',
+      lineSpacing: 4,
+      wordWrap: { width: pw - 24 }       // envoltura por ancho del panel
+    });
+
+    rulesContainer.add([rulesBg, rules]);
+    // === Fin del panel ===
+
     logo.setScale(0);
     this.tweens.add({ targets: logo, scale: 1, duration: 800, ease: 'Back.easeOut' });
 
@@ -74,6 +111,7 @@ class SplashScene extends Phaser.Scene {
 
     this.input.keyboard.once('keydown-SPACE', () => this.scene.start('SetupScene'));
   }
+
 
   // Creates all placeholder textures using Graphics.generateTexture
   generatePlaceholders() {
