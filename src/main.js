@@ -37,7 +37,7 @@ const config = {
   type: Phaser.AUTO,
   width: GAME_W,
   height: GAME_H,
-  parent: 'game',                   // ensure <div id="game"></div> exists
+  parent: 'game',
   backgroundColor: '#121212',
   scene: [SplashScene, SetupScene, GameScene],
   scale: {

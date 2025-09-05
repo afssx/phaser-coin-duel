@@ -89,17 +89,19 @@ Luego se aplican las defensas del que eligió Sello:
 • Defensa activa (por haber elegido Sello este turno): daño ×0.5 (redondea hacia abajo) si el atacante no penetra.
 • Armadura (si el defensor venía con ≥2 Sellos seguidos y este turno también eligió Sello): −1 daño si el atacante no penetra.
 • Escudo mágico (si el defensor alcanzó ≥3 Sellos seguidos en algún turno anterior y aún no lo consumió): bloquea todo el daño y se consume.
-• Inmune (si el defensor llega a 4 Sellos seguidos este mismo turno): 0 daño (la inmunidad es solo ese turno).`;
+• Inmune (si el defensor llega a 4 Sellos seguidos este mismo turno): 0 daño (la inmunidad es solo ese turno).
+
+- Por Catalina Amortegui - Andres Sabogal
+`;
 
     const rules = this.add.text(12, 12, rulesText, {
       fontSize: '12px',
       color: '#ddd',
       lineSpacing: 4,
-      wordWrap: { width: pw - 24 }       // envoltura por ancho del panel
+      wordWrap: { width: pw - 24 }
     });
 
     rulesContainer.add([rulesBg, rules]);
-    // === Fin del panel ===
 
     logo.setScale(0);
     this.tweens.add({ targets: logo, scale: 1, duration: 800, ease: 'Back.easeOut' });
@@ -111,7 +113,6 @@ Luego se aplican las defensas del que eligió Sello:
 
     this.input.keyboard.once('keydown-SPACE', () => this.scene.start('SetupScene'));
   }
-
 
   // Creates all placeholder textures using Graphics.generateTexture
   generatePlaceholders() {

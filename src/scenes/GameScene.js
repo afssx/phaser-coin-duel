@@ -1,4 +1,3 @@
-// GameScene.js
 // Core battle loop, HUD, buttons below characters, coin flip animation.
 
 import Phaser from 'phaser';
@@ -156,7 +155,7 @@ export default class GameScene extends Phaser.Scene {
         const rect = this.add.image(0, 0, 'ui_button').setOrigin(0, 0);
         rect.setDisplaySize(width, height); // escala visual al nuevo tamaño
 
-        // ⚠️ Ajusta explícitamente el área interactiva al nuevo tamaño
+        // Ajusta explícitamente el área interactiva al nuevo tamaño
         rect.setInteractive(
             new Phaser.Geom.Rectangle(0, 0, width, height),
             Phaser.Geom.Rectangle.Contains
@@ -181,7 +180,6 @@ export default class GameScene extends Phaser.Scene {
         this.logLines.push(msg);
         if (this.logLines.length > 5) this.logLines.shift();
         console.log(`[Duelo] ${msg}`);
-
         // this.logText.setText(this.logLines.map((l, i) => `${i + 1}. ${l}`).join('\n'));
     }
 
@@ -212,7 +210,7 @@ export default class GameScene extends Phaser.Scene {
     startCountdown() {
         if (this.countdownStarted) return;
 
-        // seguridad: limpia timers previos
+        // limpia timers previos
         if (this.turnTimer) {
             this.time.removeEvent(this.turnTimer);
             this.turnTimer = null;
@@ -514,7 +512,6 @@ export default class GameScene extends Phaser.Scene {
     }
 
     resetGame() {
-        // --- estado global de la escena
         this.harmonyEnergy = 0;
         this.round = 1;
         this.logLines = [];
@@ -523,7 +520,7 @@ export default class GameScene extends Phaser.Scene {
             this.time.removeEvent(this.turnTimer);
             this.turnTimer = null;
         }
-        if (this.nextTurnCall) {              // si agregas el punto (b)
+        if (this.nextTurnCall) {
             this.nextTurnCall.remove(false);
             this.nextTurnCall = null;
         }
@@ -531,7 +528,7 @@ export default class GameScene extends Phaser.Scene {
         this.countdownStarted = false;
         this.revealing = false;
 
-        // --- helper: NO reemplaza el objeto; solo resetea campos mutables
+        // NO reemplaza el objeto; solo resetea campos mutables
         const resetPlayer = (p) => {
             p.hp = INITIAL_HP;
             p.defenseEnergy = 0;
@@ -561,5 +558,4 @@ export default class GameScene extends Phaser.Scene {
 
         this.startTurn();
     }
-
 }
