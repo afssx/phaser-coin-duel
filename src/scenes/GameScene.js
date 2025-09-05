@@ -69,8 +69,8 @@ export default class GameScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-L', () => this.selectFor(this.p2, 'cruz'));
 
         // Utility buttons
-        this.makeButton(GAME_W - 204, 24, 'Reiniciar', () => this.resetGame());
-        this.makeButton(GAME_W - 204, 74, 'Menú', () => this.scene.start('SplashScene'));
+        this.makeButton(GAME_W - 204, 50, 'Reiniciar', () => this.resetGame());
+        this.makeButton(100, 50, 'Menú', () => this.scene.start('SplashScene'));
 
         this.startTurn();
     }
