@@ -1,0 +1,61 @@
+/* Root palette (optional) */
+:root {
+  --bg: #0f0f13;
+  --panel: #181a20;
+  --accent: #ffd166;
+  --text: #e9eaef;
+}
+
+/* Reset & base layout so Phaser canvas can size to parent */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  /* prevent page bounce / rubber-band while swiping */
+  overscroll-behavior: none;              /* avoid parent scroll on touch/trackpad */
+  touch-action: none;                     /* prevent browser gestures over the canvas */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Phaser will scale the <canvas> to fit this container (Scale.FIT + autoCenter) */
+#game {
+  width: 100vw;
+  height: 100vh;                          /* use full viewport */
+  display: grid;                          /* easy centering */
+  place-items: center;                    /* center the canvas */
+  background: radial-gradient(1200px 800px at 50% 25%, #1a1f2b 0%, var(--bg) 60%, #0b0c10 100%);
+  /* If you wrap with additional UI, keep this as the canvas parent in game config */
+}
+
+/* Canvas tweaks */
+#game canvas {
+  display: block;                         /* remove inline gaps */
+  outline: none;                          /* avoid focus ring flash on clicks */
+  /* If your game uses pixel art, add the .pixelated class (below) from JS when needed */
+}
+
+/* Optional: crisp rendering for pixel-art games */
+#game canvas.pixelated {
+  image-rendering: pixelated;             /* modern nearest-neighbor */
+  image-rendering: crisp-edges;           /* fallback alias */
+}
+
+/* Optional: disable smooth scroll if you ever have internal anchors */
+html { scroll-behavior: auto; }
+
+/* (If you add any HTML overlay buttons/menus later) */
+.button {
+  background: #2b2f3a;
+  border: 1px solid #3a3f4c;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.button:hover { filter: brightness(1.08); }
+.button:active { transform: translateY(1px); }
